@@ -1,0 +1,79 @@
+/* Reset some default browser styles */
+body, h1, h2, ul, li {
+    margin: 0;
+    padding: 0;
+} 
+
+#name {
+    text-align: center; /* Add this line to center the text */
+    margin: 0; 
+}
+
+#email {
+    text-align: center;
+    padding: 0; 
+    margin: 0; 
+}
+#phone {
+    text-align: center;
+    padding: 0; 
+    margin: 0; 
+}
+
+/* Apply styles to the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Style the header */
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Style contact information */
+div {
+    margin-bottom: 10px;
+}
+
+/* Style the photo */
+img {
+    max-width: 200px;
+    height: auto;
+    border: 5px solid #333;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style section headings */
+h2 {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #333;
+    background-color: #ddd;
+    padding: 5px 10px;
+}
+
+/* Style the unordered lists */
+ul {
+    list-style: square;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+/* Style list items */
+li {
+    margin-bottom: 5px;
+}
+
+/* Add some spacing between sections */
+div:not(:last-child) {
+    margin-bottom: 30px;
+}
