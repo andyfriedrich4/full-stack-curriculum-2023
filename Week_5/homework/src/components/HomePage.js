@@ -18,6 +18,16 @@ import { useAuth } from '../contexts/AuthContext'
 export default function HomePage() {
   const navigate = useNavigate();
 
+  const {currentUser} = useAuth(); 
+
+
+  useEffect(() => {
+    if(!currentUser) {
+      //kick out
+      navigate("/login");
+    }
+  })
+
 
   // State to hold the list of tasks.
   const [tasks, setTasks] = useState([
