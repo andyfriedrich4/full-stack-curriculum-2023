@@ -26,17 +26,18 @@ export default function HomePage() {
       //kick out
       navigate("/login");
     }
-  })
+    apiPromise(); 
+  }, [])
 
 
   // State to hold the list of tasks.
   const [tasks, setTasks] = useState([
     // Sample tasks to start with.
-    { name: "create a todo app", finished: false },
-    { name: "wear a mask", finished: false },
-    { name: "play roblox", finished: false },
-    { name: "be a winner", finished: true },
-    { name: "become a tech bro", finished: true },
+    { task: "create a todo app", finished: false },
+    { task: "wear a mask", finished: false },
+    { task: "play roblox", finished: false },
+    { task: "be a winner", finished: true },
+    { task: "become a tech bro", finished: true },
   ]);
 
   // State for the task name being entered by the user.
@@ -45,18 +46,58 @@ export default function HomePage() {
   // TODO: Support retrieving your todo list from the API.
   // Currently, the tasks are hardcoded. You'll need to make an API call
   // to fetch the list of tasks instead of using the hardcoded data.
+  let apiCall = `https://tpeo-todo.vercel.app/tasks/${currentUser.username}`; 
+
+  const apiPromise = () => {
+    fetch(apiCall)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data); 
+      setTasks(data); 
+    })
+    .catch((error) => {
+      console.error("Error: ", error); 
+    });
+  }
+
+
+
 
   function addTask() {
     // Check if task name is provided and if it doesn't already exist.
-    if (taskName && !tasks.some((task) => task.name === taskName)) {
+    if (taskName && !tasks.some((task) => task.task === taskName)) {
 
       // TODO: Support adding todo items to your todo list through the API.
       // In addition to updating the state directly, you should send a request
       // to the API to add a new task and then update the state based on the response.
 
-      setTasks([...tasks, { name: taskName, finished: false }]);
-      setTaskName("");
-    } else if (tasks.some((task) => task.name === taskName)) {
+    const url = 'https://tpeo-todo.vercel.app/tasks';
+    const data = {
+      user: `${currentUser.username}`,
+      task: `${taskName}`,
+      finished: false,
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('Response from API:', responseData);
+        // Handle the API response here
+        setTasks([...tasks, responseData]);
+        setTaskName("");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    } else if (tasks.some((task) => task.task === taskName)) {
       alert("Task already exists!");
     }
   }
@@ -65,14 +106,41 @@ export default function HomePage() {
   function updateTask(name) {
     setTasks(
       tasks.map((task) =>
-        task.name === name ? { ...task, finished: !task.finished } : task
+        task.task === name ? { ...task, finished: !task.finished } : task
       )
     );
 
     // TODO: Support removing/checking off todo items in your todo list through the API.
     // Similar to adding tasks, when checking off a task, you should send a request
     // to the API to update the task's status and then update the state based on the response.
-  }
+    const del_task = tasks.find((element) => element.task === name); 
+    const url = `https://tpeo-todo.vercel.app/tasks/${del_task.id}`;
+
+    console.log(del_task.id)
+
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if(response.status === 200) {
+          console.log("successful deletion");
+          // Remove the deleted task from the state
+          const updatedTasks = tasks.filter((task) => task.id !== del_task.id);
+          setTasks(updatedTasks);
+        } else {
+          console.error("failed deletion"); 
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    } 
+  
 
   // Function to compute a message indicating how many tasks are unfinished.
   function getSummary() {
@@ -141,14 +209,14 @@ export default function HomePage() {
             <List sx={{ marginTop: 3 }}>
               {tasks.map((task) => (
                 <ListItem
-                  key={task.name}
+                  key={task.task}
                   dense
-                  onClick={() => updateTask(task.name)}
+                  onClick={() => updateTask(task.task)}
                 >
                   <Checkbox
                     checked={task.finished}
                   />
-                  <ListItemText primary={task.name} />
+                  <ListItemText primary={task.task} />
                 </ListItem>
               ))}
             </List>
