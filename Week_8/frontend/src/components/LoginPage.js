@@ -14,6 +14,7 @@ function LoginPage() {
   // Access the MUI theme for potential theme-related functionalities.
   const theme = useTheme();
 
+  // TODO: Extract login function and error from our authentication context.
   const {loginError, login} = useAuth(); 
 
 
@@ -21,6 +22,7 @@ function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  // TODO: Handle login function.
   const handleLogin = () => {
     login(username, password); 
   };

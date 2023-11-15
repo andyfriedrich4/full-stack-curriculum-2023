@@ -21,6 +21,22 @@ admin.initializeApp({
   databaseURL: "https://tpeo-todo.firebaseio.com",  // TODO: replace with your database URL
 });
 
+// // Firebase Admin Authentication Middleware
+// const auth = (req, res, next) => {
+//   try {
+//     const tokenId = req.get("Authorization").split("Bearer ")[1];
+//     admin.auth().verifyIdToken(tokenId)
+//       .then((decoded) => {
+//         req.token = decoded;
+//         next();
+//       })
+//       .catch((error) => res.status(401).send(error));
+//   } catch (error) {
+//     res.status(400).send("Invalid token");
+//   }
+// };
+
 const db = admin.firestore();
 
 module.exports = db;
+

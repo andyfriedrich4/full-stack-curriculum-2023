@@ -1,12 +1,9 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-
 
 function Header() {
-  const navigate = useNavigate();
-  const {currentUser, logout, register} = useAuth(); 
+  const {currentUser, logout} = useAuth(); 
 
   return (
     <AppBar
@@ -36,19 +33,6 @@ function Header() {
           }}
         >
           Logout
-        </Button>
-        <Button
-          href="/register"
-          sx={{
-            backgroundColor: "#FFEBEB",
-            "&:hover": {
-              backgroundColor: "#FFCDCD",
-            },
-            color: "darkred",
-            textTransform: "none", // This will prevent text from being all uppercase
-          }}
-        >
-          Register
         </Button>
       </Toolbar>
     </AppBar>

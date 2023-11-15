@@ -10,19 +10,19 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useAuth } from "../contexts/AuthContext";
 
-function LoginPage() {
+function RegisterPage() {
   // Access the MUI theme for potential theme-related functionalities.
   const theme = useTheme();
 
-  const {loginError, login} = useAuth(); 
+  const {loginError, register} = useAuth(); 
 
 
   // State to hold the username and password entered by the user.
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    login(username, password); 
+  const handleRegister = () => {
+    register(email, password); 
   };
 
 
@@ -47,7 +47,7 @@ function LoginPage() {
           src="/longhorn.jpg"
         ></Box>
         <Typography component="h1" variant="h4" fontWeight="bold">
-          Login
+          Register
         </Typography>
         <Box sx={{ mt: 1 }}>
           <TextField
@@ -60,8 +60,8 @@ function LoginPage() {
             InputLabelProps={{ shrink: true }}
             placeholder="admin"
             autoFocus
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -82,9 +82,9 @@ function LoginPage() {
             variant="contained"
             color="primary"
             sx={{ mt: 3, mb: 2 }}
-            onClick={handleLogin}
+            onClick={handleRegister}
           >
-            Login
+            Register
           </Button>
         </Box>
         {/* TODO: Display Login Error if it exists */}
@@ -98,4 +98,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

@@ -20,6 +20,7 @@ export default function HomePage() {
 
   const {currentUser} = useAuth(); 
 
+
   useEffect(() => {
     if(!currentUser) {
       //kick out
@@ -27,6 +28,7 @@ export default function HomePage() {
     }
     apiPromise(); 
   }, [])
+
 
   // State to hold the list of tasks.
   const [tasks, setTasks] = useState([
