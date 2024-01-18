@@ -18,7 +18,7 @@ const creds = JSON.parse(process.env.FIREBASE_CREDENTIALS);
 // Initializing Firebase Admin SDK with credentials and database URL
 admin.initializeApp({
   credential: admin.credential.cert(creds),
-  databaseURL: "https://tpeo-todo.firebaseio.com",  
+  // databaseURL: "https://tpeo-todo.firebaseio.com",  
 });
 
 // Firebase Admin Authentication Middleware
