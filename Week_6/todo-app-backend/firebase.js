@@ -18,23 +18,23 @@ const creds = JSON.parse(process.env.FIREBASE_CREDENTIALS);
 // Initializing Firebase Admin SDK with credentials and database URL
 admin.initializeApp({
   credential: admin.credential.cert(creds),
-  databaseURL: "https://tpeo-todo.firebaseio.com",  // TODO: replace with your database URL
+  databaseURL: "https://tpeo-todo.firebaseio.com",  
 });
 
-// // Firebase Admin Authentication Middleware
-// const auth = (req, res, next) => {
-//   try {
-//     const tokenId = req.get("Authorization").split("Bearer ")[1];
-//     admin.auth().verifyIdToken(tokenId)
-//       .then((decoded) => {
-//         req.token = decoded;
-//         next();
-//       })
-//       .catch((error) => res.status(401).send(error));
-//   } catch (error) {
-//     res.status(400).send("Invalid token");
-//   }
-// };
+// Firebase Admin Authentication Middleware
+const auth = (req, res, next) => {
+  try {
+    const tokenId = req.get("Authorization").split("Bearer ")[1];
+    admin.auth().verifyIdToken(tokenId)
+      .then((decoded) => {
+        req.token = decoded;
+        next();
+      })
+      .catch((error) => res.status(401).send(error));
+  } catch (error) {
+    res.status(400).send("Invalid token");
+  }
+};
 
 const db = admin.firestore();
 
