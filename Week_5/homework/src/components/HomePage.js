@@ -44,8 +44,8 @@ export default function HomePage() {
   // TODO: Support retrieving your todo list from the API.
   // Currently, the tasks are hardcoded. You'll need to make an API call
   // to fetch the list of tasks instead of using the hardcoded data.
-  let apiCall = `http://localhost:4001/tasks/${currentUser.username}`;
-  // let apiCall = `http://localhost:4001/tasks/Andy`; 
+  // let apiCall = `http://localhost:4001/tasks/${currentUser.username}`;
+  let apiCall = `http://localhost:4001/tasks/Andy`; 
  
 
   const apiPromise = () => {
