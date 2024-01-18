@@ -40,12 +40,13 @@ export default function HomePage() {
 
   // State for the task name being entered by the user.
   const [taskName, setTaskName] = useState("");
+  const backend = process.env.REACT_APP_BACKEND;
 
   // TODO: Support retrieving your todo list from the API.
   // Currently, the tasks are hardcoded. You'll need to make an API call
   // to fetch the list of tasks instead of using the hardcoded data.
-  // let apiCall = `http://localhost:4001/tasks/${currentUser.username}`;
-  let apiCall = `http://localhost:4001/tasks/Andy`; 
+  let apiCall = `${backend}/tasks/${currentUser.username}`;
+  // let apiCall = `${backend}/tasks/Andy`; 
  
 
   const apiPromise = () => {
@@ -71,7 +72,7 @@ export default function HomePage() {
       // In addition to updating the state directly, you should send a request
       // to the API to add a new task and then update the state based on the response.
 
-    const url = 'http://localhost:4001/tasks/';
+    const url = `${backend}/tasks/`;
     const data = {
       user: `${currentUser.username}`,
       task: `${taskName}`,
@@ -114,7 +115,7 @@ export default function HomePage() {
     // Similar to adding tasks, when checking off a task, you should send a request
     // to the API to update the task's status and then update the state based on the response.
     const del_task = tasks.find((element) => element.task === name); 
-    const url = `http://localhost:4001/tasks/${del_task.id}`;
+    const url = `${backend}/tasks/${del_task.id}`;
 
     console.log(del_task.id)
 
